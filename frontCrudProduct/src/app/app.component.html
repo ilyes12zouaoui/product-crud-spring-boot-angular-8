@@ -1,0 +1,12 @@
+<div>
+  <a [routerLink]="['/']" routerLinkActive="router-link-active">home</a
+  >{{ " " }}
+  <a [routerLink]="['/products']" routerLinkActive="router-link-active"
+    >products</a
+  >{{ " " }}
+  <a [routerLink]="['/products/create']" routerLinkActive="router-link-active"
+    >create</a
+  >
+</div>
+
+<router-outlet></router-outlet>

@@ -1,0 +1,14 @@
+<div>
+  <form (ngSubmit)="onSubmit()" #f="ngForm">
+    <div>
+      name:
+      <input name="name" required ngModel />
+    </div>
+
+    <div>
+      description:
+      <textarea name="description" required ngModel></textarea>
+    </div>
+    <button type="submit" [disabled]="disabled">submit</button>
+  </form>
+</div>
