@@ -1,14 +1,45 @@
 <div>
-  <form (ngSubmit)="onSubmit()" #f="ngForm">
-    <div>
-      name:
-      <input name="name" required ngModel />
-    </div>
+  <mat-card
+    style="max-width: 500px;margin:auto"
+    [class.mat-elevation-z8]="true"
+  >
+    <form
+      style="display: flex;flex-direction: column;"
+      (ngSubmit)="onSubmit()"
+      #f="ngForm"
+    >
+      <mat-form-field>
+        <input matInput placeholder="name" name="name" required ngModel />
+      </mat-form-field>
 
-    <div>
-      description:
-      <textarea name="description" required ngModel></textarea>
-    </div>
-    <button type="submit" [disabled]="disabled">submit</button>
-  </form>
+      <mat-form-field>
+        <textarea
+          matInput
+          placeholder="description"
+          name="description"
+          required
+          ngModel
+        ></textarea>
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          matInput
+          type="number"
+          placeholder="price"
+          name="price"
+          required
+          ngModel
+        />
+      </mat-form-field>
+
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="disabled"
+      >
+        submit
+      </button>
+    </form>
+  </mat-card>
 </div>

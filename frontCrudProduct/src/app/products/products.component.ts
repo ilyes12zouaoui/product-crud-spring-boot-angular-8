@@ -9,11 +9,23 @@ const getProductsUrl = "http://localhost:8082/products";
 })
 export class ProductsComponent implements OnInit {
   products: any = [];
-
+  breakpoint = 3;
   constructor(private productsService: ProductsService) {}
 
   ngOnInit() {
     this.getProducts();
+    // this.products = [
+    //   { name: "nnn", description: "descrip", price: 12 },
+    //   { name: "nn2", description: "descrip", price: 12 },
+    //   { name: "nn3", description: "descrip", price: 12 }
+    // ];
+    this.breakpoint =
+      window.innerWidth <= 700 ? (window.innerWidth <= 500 ? 1 : 2) : 3;
+  }
+
+  onResize(event) {
+    this.breakpoint =
+      window.innerWidth <= 700 ? (window.innerWidth <= 500 ? 1 : 2) : 3;
   }
 
   getProducts() {

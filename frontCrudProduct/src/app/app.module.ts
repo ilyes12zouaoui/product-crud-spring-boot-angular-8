@@ -1,15 +1,18 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { BrowserModule } from "@angular/platform-browser";
+import { NgModule } from "@angular/core";
 import { HttpClientModule } from "@angular/common/http";
 import { FormsModule } from "@angular/forms";
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { ProductsComponent } from './products/products.component';
-import { ProductComponent } from './products/product/product.component';
-import { CreateProductComponent } from './create-product/create-product.component';
-import { UpdateProductComponent } from './update-product/update-product.component';
-import { HomeComponent } from './home/home.component';
+import { DemoMaterialModule } from "./material.module";
+
+import { AppRoutingModule } from "./app-routing.module";
+import { AppComponent } from "./app.component";
+import { ProductsComponent } from "./products/products.component";
+import { ProductComponent } from "./products/product/product.component";
+import { CreateProductComponent } from "./create-product/create-product.component";
+import { UpdateProductComponent } from "./update-product/update-product.component";
+import { HomeComponent } from "./home/home.component";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [
@@ -21,12 +24,14 @@ import { HomeComponent } from './home/home.component';
     HomeComponent
   ],
   imports: [
+    FormsModule,
+    BrowserAnimationsModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    DemoMaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

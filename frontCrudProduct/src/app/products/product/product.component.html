@@ -1,5 +1,17 @@
-<div>
-  <div>name : {{ product.name }}</div>
-  <div>id : {{ product.id }}</div>
-  <div>description : {{ product.description }}</div>
-</div>
+<mat-card style="max-width: 500px;margin:auto" [class.mat-elevation-z5]="true">
+  <img
+    mat-card-image
+    src="/assets/images/product.jpg"
+    alt="Photo of a Shiba Inu"
+  />
+
+  <mat-card-content>
+    <div>name : {{ product.name }}</div>
+    <div>price : {{ (product.price || "52") + " dt" }}</div>
+    <div>description : {{ product.description }}</div>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button color="primary">update</button>
+    <button mat-raised-button color="accent">delete</button>
+  </mat-card-actions>
+</mat-card>

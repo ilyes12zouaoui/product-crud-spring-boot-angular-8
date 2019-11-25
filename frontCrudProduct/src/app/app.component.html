@@ -1,12 +1,34 @@
-<div>
-  <a [routerLink]="['/']" routerLinkActive="router-link-active">home</a
-  >{{ " " }}
-  <a [routerLink]="['/products']" routerLinkActive="router-link-active"
-    >products</a
-  >{{ " " }}
-  <a [routerLink]="['/products/create']" routerLinkActive="router-link-active"
-    >create</a
-  >
+<mat-toolbar
+  color="primary"
+  style="display:flex;justify-content: space-between;"
+>
+  <button mat-button [routerLink]="['/']">Spring boot angular 8</button>
+  <span>
+    <button mat-button [matMenuTriggerFor]="menu">
+      Porducts
+    </button>
+    <mat-menu #menu="matMenu">
+      <button [routerLink]="['/products', 'create']" mat-menu-item>
+        Create
+      </button>
+      <button [routerLink]="['/products']" mat-menu-item>Show list</button>
+    </mat-menu>
+  </span>
+</mat-toolbar>
+<div class="mat-app-background basic-container">
+  <router-outlet></router-outlet>
 </div>
-
-<router-outlet></router-outlet>
+<mat-toolbar
+  color="primary"
+  style="display:flex;justify-content: space-between;"
+>
+  <span class="mat-body"
+    >made with love by
+    <a
+      href="https://www.linkedin.com/in/ilyes-zouaoui/"
+      target="_blank"
+      style="color:white"
+      >lass</a
+    ></span
+  >
+</mat-toolbar>
