@@ -1,7 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ProductsService } from "../products.service";
 
-const getProductsUrl = "http://localhost:8082/products";
 @Component({
   selector: "app-products",
   templateUrl: "./products.component.html",
@@ -10,6 +9,8 @@ const getProductsUrl = "http://localhost:8082/products";
 export class ProductsComponent implements OnInit {
   products: any = [];
   breakpoint = 3;
+  isLoading = true;
+  failed = false;
   constructor(private productsService: ProductsService) {}
 
   ngOnInit() {
@@ -29,8 +30,16 @@ export class ProductsComponent implements OnInit {
   }
 
   getProducts() {
-    this.productsService.getProducts(getProductsUrl).subscribe(products => {
-      this.products = products;
-    });
+    this.productsService.getProducts().subscribe(
+      products => {
+        this.products = products;
+        this.failed = false;
+        this.isLoading = false;
+      },
+      err => {
+        this.failed = true;
+        this.isLoading = false;
+      }
+    );
   }
 }

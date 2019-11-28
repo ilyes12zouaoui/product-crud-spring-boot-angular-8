@@ -5,11 +5,11 @@
   >
     <form
       style="display: flex;flex-direction: column;"
+      [formGroup]="createProductForm"
       (ngSubmit)="onSubmit()"
-      #f="ngForm"
     >
       <mat-form-field>
-        <input matInput placeholder="name" name="name" required ngModel />
+        <input matInput placeholder="name" name="name" formControlName="name" />
       </mat-form-field>
 
       <mat-form-field>
@@ -17,8 +17,7 @@
           matInput
           placeholder="description"
           name="description"
-          required
-          ngModel
+          formControlName="description"
         ></textarea>
       </mat-form-field>
       <mat-form-field>
@@ -27,19 +26,27 @@
           type="number"
           placeholder="price"
           name="price"
-          required
-          ngModel
+          formControlName="price"
         />
       </mat-form-field>
 
       <button
+        class="spacing-top"
         mat-raised-button
         color="primary"
         type="submit"
-        [disabled]="disabled"
+        [disabled]="isLoading"
       >
         submit
       </button>
+      <p *ngIf="failed" class="warn-color mat-small spacing-top">failed!</p>
+      <div
+        *ngIf="isLoading"
+        class="spacing-top spacing-left"
+        style="display: flex;justify-content: center;"
+      >
+        <mat-spinner diameter="25"></mat-spinner>
+      </div>
     </form>
   </mat-card>
 </div>

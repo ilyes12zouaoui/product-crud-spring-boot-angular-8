@@ -1,0 +1,28 @@
+@import "~@angular/material/_theming.scss";
+
+@include mat-core();
+
+$my-app-primary: mat-palette($mat-indigo);
+$my-app-accent: mat-palette($mat-pink, A200, A100, A400);
+$my-app-warn: mat-palette($mat-red);
+.primary-color {
+  color: mat-color($my-app-primary, default);
+}
+.accent-color {
+  color: mat-color($my-app-accent, default);
+}
+.warn-color {
+  color: mat-color($my-app-warn, default);
+}
+
+body {
+  font-family: Roboto, Arial, sans-serif;
+  margin: 0;
+}
+.basic-container {
+  padding: 30px;
+}
+
+.ttt {
+  color: aqua;
+}

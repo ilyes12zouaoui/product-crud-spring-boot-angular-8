@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { Router } from "@angular/router";
 import { ProductsService } from "../products.service";
+import { FormGroup, FormControl, Validators } from "@angular/forms";
 
-const createProductsUrl = "http://localhost:8082/products";
 @Component({
   selector: "app-create-product",
   templateUrl: "./create-product.component.html",
@@ -10,23 +10,36 @@ const createProductsUrl = "http://localhost:8082/products";
 })
 export class CreateProductComponent implements OnInit {
   @ViewChild("f", { static: false }) form;
-  disabled = false;
-  constructor(
-    private productService: ProductsService,
-    private router: Router
-  ) {}
+  failed = false;
+  isLoading = false;
+
+  createProductForm: FormGroup;
+
+  constructor(private productService: ProductsService, private router: Router) {
+    this.createProductForm = new FormGroup({
+      name: new FormControl(null, Validators.required),
+      description: new FormControl(null, Validators.required),
+      price: new FormControl(null, Validators.required)
+    });
+  }
 
   ngOnInit() {}
 
   onSubmit = () => {
-    console.log(this.form.valid);
-    if (this.form.valid) {
-      this.disabled = true;
-      this.productService
-        .postProduct(createProductsUrl, this.form.value)
-        .subscribe(() => {
+    console.log(this.createProductForm);
+    if (this.createProductForm.valid) {
+      this.isLoading = true;
+      this.failed = false;
+      this.productService.postProduct(this.createProductForm.value).subscribe(
+        () => {
           this.router.navigate(["/products"]);
-        });
+          this.isLoading = false;
+        },
+        err => {
+          this.isLoading = false;
+          this.failed = true;
+        }
+      );
     }
   };
 }
