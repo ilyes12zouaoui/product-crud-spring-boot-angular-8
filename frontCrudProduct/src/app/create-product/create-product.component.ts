@@ -9,7 +9,6 @@ import { FormGroup, FormControl, Validators } from "@angular/forms";
   styleUrls: ["./create-product.component.css"]
 })
 export class CreateProductComponent implements OnInit {
-  @ViewChild("f", { static: false }) form;
   failed = false;
   isLoading = false;
 

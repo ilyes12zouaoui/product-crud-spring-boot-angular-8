@@ -1,0 +1,78 @@
+<div>
+  <mat-card
+    style="max-width: 500px;margin:auto"
+    [class.mat-elevation-z8]="true"
+  >
+    <form
+      style="display: flex;flex-direction: column;"
+      [formGroup]="createProductForm"
+      (ngSubmit)="onSubmit()"
+    >
+      <mat-form-field>
+        <input matInput placeholder="name" name="name" formControlName="name" />
+      </mat-form-field>
+
+      <mat-form-field>
+        <textarea
+          matInput
+          placeholder="description"
+          name="description"
+          formControlName="description"
+        ></textarea>
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          matInput
+          type="number"
+          placeholder="price"
+          name="price"
+          formControlName="price"
+        />
+      </mat-form-field>
+
+      <div style="display:flex" class="spacing-bottom">
+        <button
+          mat-mini-fab
+          color="primary"
+          (click)="onUploadImageButtonClick()"
+        >
+          <mat-icon>attach_file</mat-icon>
+        </button>
+        <span style="display: flex;align-items: center;margin-left: 15px;">
+          {{
+            (createProductForm.value.image &&
+              createProductForm.value.image.name) ||
+              "upload an image"
+          }}
+        </span>
+        <input
+          name="image"
+          type="file"
+          (change)="onFileChange()"
+          hidden
+          #inputImage
+        />
+      </div>
+      <div *ngIf="imageDataUrl">
+        <img style="display: block;max-width: 100%;" [src]="imageDataUrl" />
+      </div>
+      <button
+        class="spacing-top"
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="isLoading"
+      >
+        submit
+      </button>
+      <p *ngIf="failed" class="warn-color mat-small spacing-top">failed!</p>
+      <div
+        *ngIf="isLoading"
+        class="spacing-top spacing-left"
+        style="display: flex;justify-content: center;"
+      >
+        <mat-spinner diameter="25"></mat-spinner>
+      </div>
+    </form>
+  </mat-card>
+</div>

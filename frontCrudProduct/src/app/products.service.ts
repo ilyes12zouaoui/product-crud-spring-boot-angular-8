@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient, HttpHeaders, HttpRequest } from "@angular/common/http";
 
 import { Observable, throwError } from "rxjs";
 import { retry, catchError } from "rxjs/operators";
@@ -30,6 +30,12 @@ export class ProductsService {
   postProduct(body: any) {
     return this.http
       .post(productsUrls.post, body, httpOptions)
+      .pipe(retry(1), catchError(this.handleError));
+  }
+
+  createProductWithFileUpload(formdata: any) {
+    return this.http
+      .post(productsUrls.post, formdata, httpOptions)
       .pipe(retry(1), catchError(this.handleError));
   }
 
