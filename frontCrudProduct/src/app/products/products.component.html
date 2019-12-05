@@ -35,7 +35,7 @@
 <ng-template #successProducts>
   <div>
     <mat-card
-      style="max-width: 400px;margin:auto"
+      style="max-width: 400px;margin:20px auto 10px"
       [class.mat-elevation-z4]="true"
     >
       <form #f="ngForm" style="display: flex;justify-content: center;">
@@ -48,7 +48,7 @@
     <mat-grid-list
       gutterSize="20px"
       [cols]="breakpoint"
-      rowHeight="1:1.2"
+      rowHeight="1:1.1"
       (window:resize)="onResize($event)"
     >
       <!--  -->

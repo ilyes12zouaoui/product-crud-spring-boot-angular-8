@@ -35,7 +35,7 @@ export class ProductsService {
 
   createProductWithFileUpload(formdata: any) {
     return this.http
-      .post(productsUrls.post, formdata, httpOptions)
+      .post(productsUrls.post, formdata)
       .pipe(retry(1), catchError(this.handleError));
   }
 

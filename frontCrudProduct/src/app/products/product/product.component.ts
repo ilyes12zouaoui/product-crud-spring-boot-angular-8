@@ -9,5 +9,11 @@ export class ProductComponent implements OnInit {
   @Input() product: any;
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.product.image = `http://localhost:8082/images/products/${this.product.image}`;
+  }
+
+  onError() {
+    this.product.image = "/assets/images/product.jpg";
+  }
 }

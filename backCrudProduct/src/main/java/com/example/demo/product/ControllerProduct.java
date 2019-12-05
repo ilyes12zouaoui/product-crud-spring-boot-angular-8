@@ -1,10 +1,8 @@
 package com.example.demo.product;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -17,29 +15,53 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/products")
-public class ProductController {
+public class ControllerProduct {
+	
+	String subPath = "products";
+	
 	@Autowired
-	ProductService productService;
+	ServiceProduct serviceProduct;
+	
+	@Autowired
+	ServiceFile serviceFile;
 
 	@GetMapping
 	public ResponseEntity<List<Product>> findAll(@RequestParam(value = "name", defaultValue = "") String name) {
-		
-		 return  ResponseEntity.ok(productService.findProductsByName(name));
-		
+		 return  ResponseEntity.ok(serviceProduct.findProductsByName(name));
 	}
-
+	
+	@GetMapping("/aa")
+	public ResponseEntity<String> aaa() {
+		
+		 return  ResponseEntity.ok(System.getProperty("user.dir")+"src\\main\\resources\\static\\images\\");
+	}
+	
 	@PostMapping
-	public ResponseEntity create(@RequestBody Product product) {
-		return ResponseEntity.ok(productService.save(product));
+	public ResponseEntity create (@RequestParam("image") MultipartFile file,
+	@RequestParam("name")  String name,
+	@RequestParam("description")  String description,
+	@RequestParam("price")  float price) {
+		
+		String imageName = serviceFile.saveFile(file, this.subPath);
+		
+		Product product = new Product();
+
+		product.setName(name);
+		product.setDescription(description);
+		product.setPrice(price);
+		product.setImage(imageName);
+
+		return ResponseEntity.ok(serviceProduct.save(product));
 	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<Product> findById(@PathVariable Long id) {
-		Optional<Product> stock = productService.findById(id);
+		Optional<Product> stock = serviceProduct.findById(id);
 		if (!stock.isPresent()) {
 			ResponseEntity.badRequest().build();
 		}
@@ -49,20 +71,20 @@ public class ProductController {
 
 	@PutMapping("/{id}")
 	public ResponseEntity<Product> update(@PathVariable Long id, @RequestBody Product product) {
-		if (!productService.findById(id).isPresent()) {
+		if (!serviceProduct.findById(id).isPresent()) {
 			ResponseEntity.badRequest().build();
 		}
 	
-		return ResponseEntity.ok(productService.Update(product,id));
+		return ResponseEntity.ok(serviceProduct.Update(product,id));
 	}
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity delete(@PathVariable Long id) {
-		if (!productService.findById(id).isPresent()) {
+		if (!serviceProduct.findById(id).isPresent()) {
 			ResponseEntity.badRequest().build();
 		}
 
-		productService.deleteById(id);
+		serviceProduct.deleteById(id);
 
 		return ResponseEntity.ok().build();
 	}

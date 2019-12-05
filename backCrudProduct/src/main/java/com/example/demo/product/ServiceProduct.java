@@ -1,39 +1,39 @@
 package com.example.demo.product;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ProductService implements ProductServiceInterface {
-
+public class ServiceProduct {
 	@Autowired
-	ProductRepository productRepository;
-
-	@Override
+	RepositoryProduct repositoryProduct;
+	
 	public List<Product> findAll() {
 		List<Product> result = new ArrayList<Product>();
-		productRepository.findAll().forEach(result::add);
+		repositoryProduct.findAll().forEach(result::add);
 		return result;
 	}
 
 	public List<Product> findProductsByName(String name) {
 		List<Product> result = new ArrayList<Product>();
-		productRepository.findPoductsByName(name).forEach(result::add);
+		repositoryProduct.findPoductsByName(name).forEach(result::add);
 		return result;
 	}
 
 	public Optional<Product> findById(Long id) {
-		return productRepository.findById(id);
+		return repositoryProduct.findById(id);
 	}
 
 	public Product save(Product stock) {
-		return productRepository.save(stock);
+		return repositoryProduct.save(stock);
 	}
 
 	public Product Update(Product newProduct, Long id) {
-		Product oldProduct = productRepository.findById(id).get();
+		Product oldProduct = repositoryProduct.findById(id).get();
 		if (!newProduct.getName().isEmpty())
 			oldProduct.setName(newProduct.getName());
 		if (!newProduct.getDescription().isEmpty())
@@ -41,12 +41,12 @@ public class ProductService implements ProductServiceInterface {
 		if (newProduct.getPrice() > 0)
 			oldProduct.setPrice(newProduct.getPrice());
 
-		return productRepository.save(oldProduct);
+		return repositoryProduct.save(oldProduct);
 
 	}
 
 	public void deleteById(Long id) {
-		productRepository.deleteById(id);
+		repositoryProduct.deleteById(id);
 	}
 
 }

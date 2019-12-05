@@ -1,38 +1,44 @@
 package com.example.demo.product;
 
 import java.io.Serializable;
-
-
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.math.BigDecimal;
-import java.util.Date;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
-public class Product implements Serializable {
+public class Product implements Serializable  {
 
-	private static final long serialVersionUID = 8923549496962503173L;
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 482147751308344668L;
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+	private String image;
+	
     private String name;
 
     private String description;
 
-    private Long price;
+    private float price;
 
     @CreationTimestamp
     private Date createdAt;
 
     @UpdateTimestamp
     private Date updatedAt;
+    
+    
 
 	public Long getId() {
 		return id;
@@ -40,6 +46,14 @@ public class Product implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
 	}
 
 	public String getName() {
@@ -58,11 +72,11 @@ public class Product implements Serializable {
 		this.description = description;
 	}
 
-	public Long getPrice() {
+	public float getPrice() {
 		return price;
 	}
 
-	public void setPrice(Long price) {
+	public void setPrice(float price) {
 		this.price = price;
 	}
 
@@ -81,6 +95,7 @@ public class Product implements Serializable {
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
+    
     
     
     
