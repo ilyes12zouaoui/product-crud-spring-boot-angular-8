@@ -2,4 +2,6 @@
 
 still working on it ...
 
-for now you can find the create and show all products functionalities.
+for now you can find the create product with image upload and show all products functionalities.
+
+don't forget to refresh the spring boot project after uploading a new file in ressources/static.
