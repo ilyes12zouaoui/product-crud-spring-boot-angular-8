@@ -21,34 +21,36 @@ import org.springframework.web.multipart.MultipartFile;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/products")
 public class ControllerProduct {
-	
+
 	String subPath = "products";
-	
+
 	@Autowired
 	ServiceProduct serviceProduct;
-	
+
 	@Autowired
 	ServiceFile serviceFile;
 
 	@GetMapping
 	public ResponseEntity<List<Product>> findAll(@RequestParam(value = "name", defaultValue = "") String name) {
-		 return  ResponseEntity.ok(serviceProduct.findProductsByName(name));
+		return ResponseEntity.ok(serviceProduct.findProductsByName(name));
 	}
-	
+
 	@GetMapping("/aa")
 	public ResponseEntity<String> aaa() {
-		
-		 return  ResponseEntity.ok(System.getProperty("user.dir")+"src\\main\\resources\\static\\images\\");
+
+		return ResponseEntity.ok(System.getProperty("user.dir") + "src\\main\\resources\\static\\images\\");
 	}
-	
+
 	@PostMapping
-	public ResponseEntity create (@RequestParam("image") MultipartFile file,
-	@RequestParam("name")  String name,
-	@RequestParam("description")  String description,
-	@RequestParam("price")  float price) {
-		
-		String imageName = serviceFile.saveFile(file, this.subPath);
-		
+	public ResponseEntity create(@RequestParam("image") MultipartFile file, @RequestParam("name") String name,
+			@RequestParam("description") String description, @RequestParam("price") float price) {
+
+		String imageName = "product.jpg";
+
+		if (!file.isEmpty()) {
+			imageName = serviceFile.saveFile(file, this.subPath);
+		}
+
 		Product product = new Product();
 
 		product.setName(name);
@@ -74,16 +76,23 @@ public class ControllerProduct {
 		if (!serviceProduct.findById(id).isPresent()) {
 			ResponseEntity.badRequest().build();
 		}
-	
-		return ResponseEntity.ok(serviceProduct.Update(product,id));
+
+		return ResponseEntity.ok(serviceProduct.Update(product, id));
 	}
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity delete(@PathVariable Long id) {
-		if (!serviceProduct.findById(id).isPresent()) {
+		Optional<Product> product = serviceProduct.findById(id);
+		if (!product.isPresent()) {
 			ResponseEntity.badRequest().build();
 		}
 
+		String imageName = product.get().getImage();
+		
+		if (!imageName.equals("product.jpg")) {
+		
+			serviceFile.deleteFile(this.subPath + "\\" + imageName);
+		}
 		serviceProduct.deleteById(id);
 
 		return ResponseEntity.ok().build();
