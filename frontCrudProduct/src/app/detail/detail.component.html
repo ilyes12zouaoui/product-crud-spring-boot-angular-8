@@ -50,7 +50,9 @@
       <div>description : {{ product.description }}</div>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-raised-button color="primary">update</button>
+      <button mat-raised-button color="primary" (click)="openUpdateDetails()">
+        update
+      </button>
       <button mat-raised-button color="accent" (click)="onDelete()">
         delete
       </button>

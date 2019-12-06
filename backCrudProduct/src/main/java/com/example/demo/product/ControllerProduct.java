@@ -42,12 +42,12 @@ public class ControllerProduct {
 	}
 
 	@PostMapping
-	public ResponseEntity create(@RequestParam("image") MultipartFile file, @RequestParam("name") String name,
+	public ResponseEntity create(@RequestParam(name = "image",required = false) MultipartFile file, @RequestParam("name") String name,
 			@RequestParam("description") String description, @RequestParam("price") float price) {
 
 		String imageName = "product.jpg";
 
-		if (!file.isEmpty()) {
+		if (file != null) {
 			imageName = serviceFile.saveFile(file, this.subPath);
 		}
 
@@ -71,12 +71,14 @@ public class ControllerProduct {
 		return ResponseEntity.ok(product.get());
 	}
 
-	@PutMapping("/{id}")
-	public ResponseEntity<Product> update(@PathVariable Long id, @RequestBody Product product) {
+	@PutMapping("/{id}/details")
+	public ResponseEntity<Product> updateDetails(@PathVariable Long id,@RequestBody Product product) {
 		if (!serviceProduct.findById(id).isPresent()) {
 			ResponseEntity.badRequest().build();
 		}
-
+		System.out.println(product.getName());
+		
+		
 		return ResponseEntity.ok(serviceProduct.Update(product, id));
 	}
 

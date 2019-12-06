@@ -13,7 +13,9 @@ const httpOptions = {
 const productsUrls = {
   get: "http://localhost:8082/products",
   post: "http://localhost:8082/products",
-  getById: id => `http://localhost:8082/products/${id}`
+  getById: id => `http://localhost:8082/products/${id}`,
+  putDetailsById: id => `http://localhost:8082/products/${id}/details`,
+  putImageById: id => `http://localhost:8082/products/${id}/image`
 };
 
 @Injectable({
@@ -37,6 +39,11 @@ export class ProductsService {
   postProduct(body: any) {
     return this.http
       .post(productsUrls.post, body, httpOptions)
+      .pipe(retry(1), catchError(this.handleError));
+  }
+  putProductDetails(body: any, id) {
+    return this.http
+      .put(productsUrls.putDetailsById(id), body, httpOptions)
       .pipe(retry(1), catchError(this.handleError));
   }
 

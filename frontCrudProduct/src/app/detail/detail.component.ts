@@ -3,6 +3,9 @@ import { Component, OnInit } from "@angular/core";
 import { ProductsService } from "../products.service";
 import { ActivatedRoute, Router } from "@angular/router";
 
+import { MatDialog } from "@angular/material/dialog";
+import { UpdateDetailsComponent } from "./update-details/update-details.component";
+
 @Component({
   selector: "app-detail",
   templateUrl: "./detail.component.html",
@@ -16,7 +19,8 @@ export class DetailComponent implements OnInit {
   constructor(
     private productsService: ProductsService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    public dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -54,4 +58,11 @@ export class DetailComponent implements OnInit {
       }
     );
   };
+
+  openUpdateDetails(): void {
+    const dialogRef = this.dialog.open(UpdateDetailsComponent, {
+      width: "250px",
+      data: { id: this.route.snapshot.params.id, ...this.product }
+    });
+  }
 }

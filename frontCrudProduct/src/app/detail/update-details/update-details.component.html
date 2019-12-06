@@ -1,0 +1,55 @@
+<div>
+  <form
+    style="display: flex;flex-direction: column;"
+    [formGroup]="createProductForm"
+    (ngSubmit)="onSubmit()"
+  >
+    <mat-form-field>
+      <input matInput placeholder="name" name="name" formControlName="name" />
+    </mat-form-field>
+
+    <mat-form-field>
+      <textarea
+        matInput
+        placeholder="description"
+        name="description"
+        formControlName="description"
+      ></textarea>
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        type="number"
+        placeholder="price"
+        name="price"
+        formControlName="price"
+      />
+    </mat-form-field>
+    <button
+      class="spacing-top"
+      mat-raised-button
+      color="primary"
+      type="submit"
+      [disabled]="isLoading"
+    >
+      submit
+    </button>
+    <button
+      class="spacing-top"
+      (click)="onCancel()"
+      mat-raised-button
+      color="accent"
+      type="button"
+    >
+      cancel
+    </button>
+    <p *ngIf="failed" class="warn-color mat-small spacing-top">failed!</p>
+    <div
+      *ngIf="isLoading"
+      class="spacing-top spacing-left"
+      style="display: flex;justify-content: center;"
+    >
+      <mat-spinner diameter="25"></mat-spinner>
+    </div>
+  </form>
+</div>

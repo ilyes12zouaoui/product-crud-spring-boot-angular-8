@@ -13,8 +13,10 @@ import { CreateProductComponent } from "./create-product/create-product.componen
 import { UpdateProductComponent } from "./update-product/update-product.component";
 import { HomeComponent } from "./home/home.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { CreateProductFileUploadComponent } from './create-product-file-upload/create-product-file-upload.component';
-import { DetailComponent } from './detail/detail.component';
+import { CreateProductFileUploadComponent } from "./create-product-file-upload/create-product-file-upload.component";
+import { DetailComponent } from "./detail/detail.component";
+import { UpdateDetailsComponent } from "./detail/update-details/update-details.component";
+import { UpdateImageComponent } from "./detail/update-image/update-image.component";
 
 @NgModule({
   declarations: [
@@ -25,8 +27,11 @@ import { DetailComponent } from './detail/detail.component';
     UpdateProductComponent,
     HomeComponent,
     CreateProductFileUploadComponent,
-    DetailComponent
+    DetailComponent,
+    UpdateDetailsComponent,
+    UpdateImageComponent
   ],
+  entryComponents: [UpdateDetailsComponent, UpdateImageComponent],
   imports: [
     FormsModule,
     BrowserAnimationsModule,
