@@ -61,12 +61,12 @@ public class ControllerProduct {
 
 	@GetMapping("/{id}")
 	public ResponseEntity<Product> findById(@PathVariable Long id) {
-		Optional<Product> stock = serviceProduct.findById(id);
-		if (!stock.isPresent()) {
+		Optional<Product> product = serviceProduct.findById(id);
+		if (!product.isPresent()) {
 			ResponseEntity.badRequest().build();
 		}
 
-		return ResponseEntity.ok(stock.get());
+		return ResponseEntity.ok(product.get());
 	}
 
 	@PutMapping("/{id}")

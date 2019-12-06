@@ -1,13 +1,14 @@
 import { Component, OnInit } from "@angular/core";
+
 import { ProductsService } from "../products.service";
 import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
-  selector: "app-product",
-  templateUrl: "./product.component.html",
-  styleUrls: ["./product.component.css"]
+  selector: "app-detail",
+  templateUrl: "./detail.component.html",
+  styleUrls: ["./detail.component.css"]
 })
-export class ProductComponent implements OnInit {
+export class DetailComponent implements OnInit {
   product: any;
 
   isLoading = true;
@@ -24,6 +25,9 @@ export class ProductComponent implements OnInit {
       .subscribe(
         product => {
           this.product = product;
+          this.product.image = `http://localhost:8082/images/products/${this
+            .product && this.product.image}`;
+
           this.failed = false;
           this.isLoading = false;
         },
@@ -32,6 +36,9 @@ export class ProductComponent implements OnInit {
           this.isLoading = false;
         }
       );
+  }
+  onError() {
+    this.product.image = "/assets/images/product.jpg";
   }
 
   onDelete = () => {

@@ -12,7 +12,8 @@ const httpOptions = {
 
 const productsUrls = {
   get: "http://localhost:8082/products",
-  post: "http://localhost:8082/products"
+  post: "http://localhost:8082/products",
+  getById: id => `http://localhost:8082/products/${id}`
 };
 
 @Injectable({
@@ -27,9 +28,21 @@ export class ProductsService {
       .pipe(retry(1), catchError(this.handleError));
   }
 
+  getProductById(id) {
+    return this.http
+      .get(productsUrls.getById(id), httpOptions)
+      .pipe(retry(1), catchError(this.handleError));
+  }
+
   postProduct(body: any) {
     return this.http
       .post(productsUrls.post, body, httpOptions)
+      .pipe(retry(1), catchError(this.handleError));
+  }
+
+  deleteProduct(id) {
+    return this.http
+      .delete(productsUrls.getById(id), httpOptions)
       .pipe(retry(1), catchError(this.handleError));
   }
 

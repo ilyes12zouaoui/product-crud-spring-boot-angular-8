@@ -1,6 +1,6 @@
 <mat-card style="max-width: 500px;margin:auto" [class.mat-elevation-z5]="true">
   <img
-  style="height:150px;"
+    style="height:150px;"
     mat-card-image
     [src]="product.image"
     alt="Photo of a Shiba Inu"
@@ -13,7 +13,12 @@
     <div>description : {{ product.description }}</div>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-raised-button color="primary">update</button>
-    <button mat-raised-button color="accent">delete</button>
+    <button
+      [routerLink]="['/products', product.id]"
+      mat-raised-button
+      color="primary"
+    >
+      show
+    </button>
   </mat-card-actions>
 </mat-card>

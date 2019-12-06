@@ -14,6 +14,7 @@ import { UpdateProductComponent } from "./update-product/update-product.componen
 import { HomeComponent } from "./home/home.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { CreateProductFileUploadComponent } from './create-product-file-upload/create-product-file-upload.component';
+import { DetailComponent } from './detail/detail.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { CreateProductFileUploadComponent } from './create-product-file-upload/c
     CreateProductComponent,
     UpdateProductComponent,
     HomeComponent,
-    CreateProductFileUploadComponent
+    CreateProductFileUploadComponent,
+    DetailComponent
   ],
   imports: [
     FormsModule,

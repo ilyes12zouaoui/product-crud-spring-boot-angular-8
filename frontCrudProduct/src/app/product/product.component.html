@@ -1,1 +1,21 @@
-<p>product works!</p>
+<mat-card style="max-width: 500px;margin:auto" [class.mat-elevation-z5]="true">
+  <img
+    style="height:150px;"
+    mat-card-image
+    [src]="product.image"
+    alt="Photo of a Shiba Inu"
+    (error)="onError()"
+  />
+
+  <mat-card-content>
+    <div>name : {{ product.name }}</div>
+    <div>price : {{ (product.price || "52") + " dt" }}</div>
+    <div>description : {{ product.description }}</div>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button color="primary">update</button>
+    <button mat-raised-button color="accent" (click)="onDelete()">
+      delete
+    </button>
+  </mat-card-actions>
+</mat-card>
